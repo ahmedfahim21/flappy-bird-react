@@ -4,34 +4,39 @@ import ForeGround from './ForeGround'
 import Pipe from './Pipe'
 import { useDispatch, useSelector } from 'react-redux'
 import { start } from '../Redux/gameReducer'
-import { fly } from '../Redux/birdReducer'
+import { fly, fall } from '../Redux/birdReducer'
+import { generatePipe, pipeRun } from '../Redux/pipeReducer'
+
 
 
 export default function Game() {
 
     const dispatch = useDispatch()
-    const game = useSelector((state) => state.game)
-    const bird = useSelector((state) => state.bird)
+    const { game } = useSelector((state) => state.game)
 
 
-    useEffect(() => {
-        const handleKeyPress = (e) => {
-            if(e.keyCode === 32){
-                dispatch(fly())
+    const handleClick = (e) => {
 
-            }
-            if(!game.playing ){
-                dispatch(start())
-            }
+        if(game.isPlaying){
+            dispatch(fly())
+            return
         }
+        if(!game.isPlaying){
+            dispatch(start())
+            setInterval(() => {
+              dispatch(fall())
+              dispatch(pipeRun())
+              dispatch(generatePipe())
+            }, 150)
+        }
+    }
 
-        document.addEventListener('keypress', handleKeyPress)
-    },[])
+
 
 
 
   return (
-    <div className='game-div'>
+    <div className='game-div' onClick={handleClick}>
         <Bird />
         <Pipe />
         <ForeGround />

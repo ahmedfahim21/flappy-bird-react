@@ -51,6 +51,7 @@ h1 {
   height: 40px;
 
   left: 150px;
+  transition: 0.2s;
 }
 .bird > img{
   aspect-ratio: 3/2;
@@ -61,9 +62,9 @@ h1 {
   position: absolute;
   left: 150px;
   width: 50px;
-  height: 200px;
   background-image: url('./assets/pipe-top.png');
   background-position: bottom;
+  transition: 0.5s;
 }
 
 .pipe-bottom{
@@ -71,8 +72,8 @@ h1 {
   top: 300px;
   left: 150px;
   width: 52px;
-  height: 200px;
   background-image: url('./assets/pipe-bottom.png');
+  transition: 0.5s;
 }
 
 
