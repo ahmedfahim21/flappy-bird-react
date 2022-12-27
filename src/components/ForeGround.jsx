@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function ForeGround() {
+export default function ForeGround(props) {
   return (
-    <div className='fore-ground'>
+    <div ref={props.ground} className='fore-ground'>
         
     </div>
   )

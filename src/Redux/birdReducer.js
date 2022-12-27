@@ -22,9 +22,13 @@ export const birdSlice = createSlice({
             state.bird.y += 20
             state.bird.rotation = 0
         },
+        birdReset: (state,action) => {
+            state.bird.y = 250
+            state.bird.rotation = 0
+        }
     }
 })
 
-export const {fly, fall} = birdSlice.actions
+export const {fly, fall, birdReset} = birdSlice.actions
 
 export default birdSlice.reducer
