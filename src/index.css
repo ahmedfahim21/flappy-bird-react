@@ -53,7 +53,7 @@ h1 {
   height: 20px;
   top: 250px;
   left: 150px;
-  transition: transform 0.1s, top 0.3s;
+  transition: 0.15s;
 
 }
 .bird > img{
@@ -68,7 +68,7 @@ h1 {
   width: 52px;
   background-image: url('./assets/pipe-top.png');
   background-position: bottom;
-  transition: left 0.3s;
+  transition: 0.7s;
   height: 200px;
 }
 
@@ -79,7 +79,7 @@ h1 {
 
   width: 52px;
   background-image: url('./assets/pipe-bottom.png');
-  transition: left 0.3s;
+  transition: 0.7s;
 }
 
 

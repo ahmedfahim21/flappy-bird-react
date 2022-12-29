@@ -132,6 +132,8 @@ export default function Game() {
         {game.status === 'GAME_OVER' && (
             <>
                 <img className='start-btn' src="./start-button.png" onClick={newGameHandler} alt="" />
+                <h2 style={{position: 'absolute', top: 100, left: 80}}>Game Over</h2>  
+                <h2 style={{position: 'absolute', top: 150, left: 140}}>{game.score}</h2>  
             </>
         )
     }
