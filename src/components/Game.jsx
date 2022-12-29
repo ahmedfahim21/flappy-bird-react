@@ -3,7 +3,7 @@ import Bird from './Bird'
 import ForeGround from './ForeGround'
 import Pipe from './Pipe'
 import { useDispatch, useSelector } from 'react-redux'
-import { gameOver, start } from '../Redux/gameReducer'
+import { addScore, gameOver, start } from '../Redux/gameReducer'
 import { fly, fall, birdReset } from '../Redux/birdReducer'
 import { generatePipe, pipeReset, pipeRun} from '../Redux/pipeReducer'
 
@@ -39,7 +39,7 @@ export default function Game() {
         pipeGenerator = setInterval(() => {
             dispatch(generatePipe()) 
 
-
+            dispatch(addScore())
 
        }, 3000)
 
@@ -65,6 +65,7 @@ export default function Game() {
     const newGameHandler = () => {
         startGameLoop()
         dispatch(start())
+
     }
 
 
@@ -134,11 +135,11 @@ export default function Game() {
         { game.status === 'PLAYING' &&
             (<>
             <audio ref={wingRef} src="./wing.mp3"></audio>
-
             <Bird />
     
             <Pipe  />
             <ForeGround/>
+              <h2 style={{position: 'absolute', top: 50, left: 150}}>{game.score}</h2>  
             
             </>
             )
