@@ -1,54 +1,49 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Bird from './Bird'
 import ForeGround from './ForeGround'
 import Pipe from './Pipe'
 import { useDispatch, useSelector } from 'react-redux'
 import { gameOver, start } from '../Redux/gameReducer'
 import { fly, fall, birdReset } from '../Redux/birdReducer'
-import { generatePipe, pipeReset, pipeRun } from '../Redux/pipeReducer'
+import { generatePipe, pipeReset, pipeRun} from '../Redux/pipeReducer'
 
 let gameLoop
 let pipeGenerator
+
+
 
 
 export default function Game() {
     
     const dispatch = useDispatch()
     const { game } = useSelector((state) => state.game)
-    const bird = useRef()
-    const topPipe = useRef()
-    const bottomPipe = useRef()
-    const ground = useRef()
-
-
-
     
-    function isInContact(div1, div2, div3, div4) {
-        // Get the bounding rectangles for each div element
-        const rect1 = div1.getBoundingClientRect();
-        const rect2 = div2.getBoundingClientRect();
-        const rect3 = div3.getBoundingClientRect();
-        const rect4 = div4.getBoundingClientRect();
+    const { bird } = useSelector((state) => state.bird)
+    const { pipes, startPosition } = useSelector((state) => state.pipe)
+    const wingRef = useRef(null)
+    let hitRef = useRef(null)
+
+
       
-        // Check if the rectangles intersect
-        const isIntersecting = (rect1, rect2) =>
-          rect1.left < rect2.right && rect1.right > rect2.left &&
-          rect1.top < rect2.bottom && rect1.bottom > rect2.top;
-      
-        // Return true if div1 is in contact with any of the other div elements
-        return isIntersecting(rect1, rect2) || isIntersecting(rect1, rect3) || isIntersecting(rect1, rect4);
-    }
 
     function startGameLoop() {
         gameLoop = setInterval(() => {
+
+
             dispatch(fall())
             dispatch(pipeRun())
-          }, 150)
 
+            
+        }, 150)
+        
         pipeGenerator = setInterval(() => {
             dispatch(generatePipe()) 
 
+
+
        }, 3000)
+
+
     }
 
     function stopGameLoop() {
@@ -62,13 +57,9 @@ export default function Game() {
 
         if(game.status === 'PLAYING'){
             dispatch(fly())
+            wingRef.current.play()
         }
 
-        if(isInContact(bird.current, topPipe.current, bottomPipe.current, ground.current)){
-            dispatch(gameOver())
-            dispatch(pipeReset())
-            dispatch(birdReset())
-        }
     }
 
     const newGameHandler = () => {
@@ -76,28 +67,78 @@ export default function Game() {
         dispatch(start())
     }
 
+
+
     useEffect(() => {
+
+
         if(game.status === 'GAME_OVER'){
             stopGameLoop()
         }
+        else{
+            const x = startPosition.x
 
-    },[game.status])
+            const challenge = pipes
+              .map(({height}, i) => {
+
+                return {
+                  x1: x + i * 200,
+                  y1: height,
+                  x2: x + i * 200,
+                  y2: height + 100,
+                }
+              })
+              .filter(({x1}) => {
+                if (x1 > 0 && x1 < 288) {
+                  return true
+                }
+              })
+
+            if (bird.y > 512 - 108) {
+                
+              dispatch(gameOver())
+              dispatch(birdReset())
+              dispatch(pipeReset())
+              hitRef.current.play()
+            }
+          
+            if (challenge.length) {
+              const {x1, y1, x2, y2} = challenge[0]
+          
+              if (
+                (x1 < 150 && 150 < x1 + 52 && bird.y < y1) ||
+                (x2 < 150 && 150 < x2 + 52 && bird.y > y2)
+              ) {
+                hitRef.current.play()
+                dispatch(gameOver())
+                dispatch(birdReset())
+                dispatch(pipeReset())
+              }
+            }
+        }
+
+    },[startPosition.x])
 
   return (
     <div className='game-div' onClick={handleClick}>
-
+        <audio ref={hitRef} src="src/assets/hit.mp3"></audio>
         {game.status === 'NEW_GAME' &&
             <img className='start-btn' src="src/assets/start-button.png" onClick={newGameHandler} alt="" />
         }
-        {game.status === 'GAME_OVER' &&
-            <img className='start-btn' src="src/assets/start-button.png" onClick={newGameHandler} alt="" />
-        }
+        {game.status === 'GAME_OVER' && (
+            <>
+                <img className='start-btn' src="src/assets/start-button.png" onClick={newGameHandler} alt="" />
+            </>
+        )
+    }
         { game.status === 'PLAYING' &&
             (<>
-            <Bird birdRef={bird}/>
+            <audio ref={wingRef} src="src/assets/wing.mp3"></audio>
+
+            <Bird />
     
-            <Pipe topPipe={topPipe} bottomPipe={bottomPipe}/>
-            <ForeGround ground={ground}/>
+            <Pipe  />
+            <ForeGround/>
             
             </>
             )

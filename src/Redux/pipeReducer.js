@@ -17,18 +17,25 @@ export const pipeSlice = createSlice({
     initialState, 
     reducers: {
         pipeRun: (state,action) => {
+            if (!state.pipes.length) {
+                return 
+              }
             state.startPosition.x -= 10
         },
         generatePipe: (state, action) => {
             const randomPipeHeight = Math.round(Math.random() *200) +50
+
             state.pipes = [...state.pipes, {height: randomPipeHeight}]
+ 
         },
         pipeReset: (state,action) => {
             state.startPosition.x = 310
             state.pipes = [{
                 height: 200
             }]
-        }
+        },
+
+        
     }
 })
 

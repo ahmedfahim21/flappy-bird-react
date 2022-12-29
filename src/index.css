@@ -49,11 +49,12 @@ h1 {
 
 .bird{
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   top: 250px;
   left: 150px;
-  transition: 0.2s;
+  transition: 0.3s;
+
 }
 .bird > img{
   aspect-ratio: 3/2;
@@ -63,11 +64,11 @@ h1 {
 .pipe-top{
   position: absolute;
   top: 0;
-  left: 150px;
-  width: 50px;
+
+  width: 52px;
   background-image: url('./assets/pipe-top.png');
   background-position: bottom;
-  transition: 0.5s;
+  transition: 0.3s;
   height: 200px;
 }
 
@@ -75,10 +76,10 @@ h1 {
   position: absolute;
   height: 200px;
   top: 300px;
-  left: 150px;
+
   width: 52px;
   background-image: url('./assets/pipe-bottom.png');
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 
@@ -89,6 +90,7 @@ h1 {
   height: 100px;
   background-color: yellow;
   background-image: url('./assets/foreground.png');
+
 }
 
 .start-btn{
