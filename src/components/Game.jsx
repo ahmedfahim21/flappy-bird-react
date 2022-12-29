@@ -21,7 +21,8 @@ export default function Game() {
     const { bird } = useSelector((state) => state.bird)
     const { pipes, startPosition } = useSelector((state) => state.pipe)
     const wingRef = useRef(null)
-    let hitRef = useRef(null)
+    const hitRef = useRef(null)
+    const pointRef = useRef(null)
 
 
       
@@ -40,6 +41,7 @@ export default function Game() {
             dispatch(generatePipe()) 
 
             dispatch(addScore())
+            pointRef.current.play()
 
        }, 3000)
 
@@ -123,6 +125,7 @@ export default function Game() {
   return (
     <div className='game-div' onClick={handleClick}>
         <audio ref={hitRef} src="./hit.mp3"></audio>
+        <audio ref={pointRef} src="./point.mp3"></audio>
         {game.status === 'NEW_GAME' &&
             <img className='start-btn' src="./start-button.png" onClick={newGameHandler} alt="" />
         }
