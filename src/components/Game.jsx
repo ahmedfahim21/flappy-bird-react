@@ -121,19 +121,19 @@ export default function Game() {
 
   return (
     <div className='game-div' onClick={handleClick}>
-        <audio ref={hitRef} src="src/assets/hit.mp3"></audio>
+        <audio ref={hitRef} src="./hit.mp3"></audio>
         {game.status === 'NEW_GAME' &&
-            <img className='start-btn' src="src/assets/start-button.png" onClick={newGameHandler} alt="" />
+            <img className='start-btn' src="./start-button.png" onClick={newGameHandler} alt="" />
         }
         {game.status === 'GAME_OVER' && (
             <>
-                <img className='start-btn' src="src/assets/start-button.png" onClick={newGameHandler} alt="" />
+                <img className='start-btn' src="./start-button.png" onClick={newGameHandler} alt="" />
             </>
         )
     }
         { game.status === 'PLAYING' &&
             (<>
-            <audio ref={wingRef} src="src/assets/wing.mp3"></audio>
+            <audio ref={wingRef} src="./wing.mp3"></audio>
 
             <Bird />
     
