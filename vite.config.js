@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/flappy-bird-react/',
+  base: '/',
   plugins: [react()],
 })
