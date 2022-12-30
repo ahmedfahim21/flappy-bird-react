@@ -59,7 +59,7 @@ export default function Game() {
 
         if(game.status === 'PLAYING'){
             dispatch(fly())
-            wingRef.current.play()
+
         }
 
     }
@@ -126,8 +126,12 @@ export default function Game() {
     <div className='game-div' onClick={handleClick}>
         <audio ref={hitRef} src="./hit.mp3"></audio>
         <audio ref={pointRef} src="./point.mp3"></audio>
-        {game.status === 'NEW_GAME' &&
+        {game.status === 'NEW_GAME' &&(
+          <>
             <img className='start-btn' src="./start-button.png" onClick={newGameHandler} alt="" />
+            <Bird />
+          </>
+        )
         }
         {game.status === 'GAME_OVER' && (
             <>
