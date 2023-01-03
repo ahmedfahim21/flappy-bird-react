@@ -6,7 +6,7 @@
 
 Clone of the famous Flappy Bird game using pure React, Redux and CSS
 
-Demo: <a>flappy-bird-redux.onrender.com</a>
+Demo: <a>https://flappy-bird-redux.onrender.com/</a>
 
 ### Screenshot
 <div>
