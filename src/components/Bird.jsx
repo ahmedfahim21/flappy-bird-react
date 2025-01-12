@@ -12,7 +12,7 @@ export default function Bird(props) {
       top: bird.y,
       transform: `rotate(${bird.rotation}deg)`,
       }}>
-        <img src="./bird.png" alt="" />
+        <img src="./bird.png" alt="" width="40px"/>
     </div>
   )
 }
